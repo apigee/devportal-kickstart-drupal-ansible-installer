@@ -1,0 +1,90 @@
+---
+################################################################################
+# Drupal configuration
+#
+# This file contains variables for the web server install.
+#
+# More Drupal configuration variables can be found in the following directories:
+# - roles/geerlingguy.drupal/defaults/main.yml
+#
+################################################################################
+
+# Database username drupal should use.
+drupal_db_user: devportal
+# Database password of drupal_db_user
+drupal_db_password: I<3APIs!
+# Database name that Drupal should use.
+drupal_db_name: devportal
+# Install MySQL as the database.
+drupal_db_backend: mysql
+# The hostname of the database server.
+drupal_db_host: "127.0.0.1"
+
+# We use Composer to build the project.
+drupal_build_composer_project: true
+# Run composer with --nodev
+drupal_composer_no_dev: true
+# Extra composer dependencies you want to add
+drupal_composer_dependencies:
+- "drush/drush"
+
+# Deploy from Git repo
+drupal_deploy: true
+# Use the Apigee Kickstart for Drupal composer project.
+drupal_deploy_repo: "https://github.com/apigee/devportal-kickstart-project-composer.git"
+drupal_deploy_version: 8.x
+drupal_deploy_update: true
+drupal_deploy_dir: "/opt/devportal"
+drupal_deploy_accept_hostkey: true
+drupal_deploy_composer_install: true
+
+# Have the devportal site files owned by unix user 'devportal' instead of root.
+# The user listed will be created on the host if it does not already exist.
+drupal_core_owner: devportal
+drupal_core_owner_become: true
+
+# The NGINX server name directive to specify which hostname or IP to use. Using
+# "_" means all requests to this server will direct Nginx to serve up the
+# devportal site. Change this to the hostname you are using. An Nginx alias
+# will be created for www.{{ drupal_domain }}.
+drupal_domain: "_"
+
+# Do not install the site using drush, instead the web installer will be used
+# to make Edge connection settings easier to configure.
+drupal_install_site: false
+
+# Drush is installed via composer so it will be in the vendor bin dir.
+drush_path: "{{drupal_composer_install_dir}}/vendor/bin/drush"
+
+################################################################################
+# PHP configuration
+#
+# More PHP configuration variables can be found in the directory:
+# roles/geerlingguy.php/defaults/main.yml
+################################################################################
+php_enablerepo: ""
+php_webserver_daemon: "nginx"
+php_enable_php_fpm: true
+php_fpm_pool_user: "nginx"
+php_fpm_pool_group: "nginx"
+# Modify if you have more memory for PHP to use
+php_memory_limit: "1024M"
+php_max_execution_time: "60"
+php_upload_max_filesize: "256M"
+# Change to proper timezone: https://www.php.net/manual/en/timezones.php
+php_date_timezone: "America/Los_Angeles"
+# Extra PHP modules to install
+php_packages_extra:
+- php-json
+- php-mysqlnd
+- php-bcmath
+
+################################################################################
+# Composer configuration
+#
+# More Composer configuration variables can be found in the directory:
+# roles/geerlingguy.composer/defaults/main.yml
+################################################################################
+
+# The path to place Composer.
+composer_path: /usr/bin/composer

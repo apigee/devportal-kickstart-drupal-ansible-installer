@@ -1,0 +1,19 @@
+################################################################################
+# Database configuration
+#
+# This file contains variables for the database install.
+#
+# More Drupal configuration variables can be found in the directory:
+# roles/geerlingguy.mysql/defaults/main.yml
+################################################################################
+
+mysql_root_password: I<3APIs!
+mysql_databases:
+- name: devportal
+  encoding: latin1
+  collation: latin1_general_ci
+mysql_users:
+- name: devportal
+  host: "%"
+  password: I<3APIs!
+  priv: "devportal.*:ALL"

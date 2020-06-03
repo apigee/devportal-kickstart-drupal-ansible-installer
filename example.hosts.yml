@@ -1,0 +1,20 @@
+# Ansible inventory file: lists the hosts that will be used when the playbook
+# runs. Learn more at:
+#   https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+#
+# The names "web1" and "db1" are aliases and can be changed.
+#
+# ansible_host: The name or IP the host to connect to.
+# ansible_user: The user name used when connecting to the host via ssh.
+all:
+  children:
+    webservers:
+      hosts:
+        web1:
+          ansible_host: my_hostname
+          ansible_user: devportal
+    dbservers:
+      hosts:
+        db1:
+          ansible_host: 55.55.55.55
+          ansible_user: devportal

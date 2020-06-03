@@ -1,0 +1,9 @@
+# Initialize paths and environment variables for Apigee Kickstart
+# for Drupal
+
+# Make sure Composer does not run into memory issues when running.
+# See: https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors
+export COMPOSER_MEMORY_LIMIT=-1
+
+# Add the project's vendor bin directory to the path
+export PATH=$PATH:{{ drupal_composer_install_dir }}/{{ drupal_composer_bin_dir }}

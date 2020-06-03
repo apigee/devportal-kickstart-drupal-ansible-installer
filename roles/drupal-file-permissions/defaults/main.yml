@@ -1,0 +1,11 @@
+---
+# Defaults file for drupal-file-permissions
+
+# The root directory of the Drupal installation
+drupal_root: /opt/devportal/web
+
+# The unix owner that should own all Drupal files
+drupal_file_owner: devportal
+
+# The unix group that should be set for all files
+drupal_file_group: nginx

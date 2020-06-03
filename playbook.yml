@@ -1,0 +1,95 @@
+---
+- hosts: dbservers
+  gather_facts: true
+  tasks:
+  - name: Install MySQL
+    import_role:
+      name: geerlingguy.mysql
+    become: true
+
+- hosts: webservers
+  gather_facts: true
+  tasks:
+  - name: Install NGINX
+    import_role:
+      name: geerlingguy.nginx
+    become: true
+  - name: Install PHP
+    import_role:
+      name: geerlingguy.php
+    become: true
+  - name: Install Git for Composer tasks
+    import_role:
+      name: geerlingguy.git
+    become: true
+  - name: Install package dependencies for Composer
+    package:
+      name:
+      - zip
+      - unzip
+      - patch
+      state: present
+    become: true
+  - name: Install Composer
+    import_role:
+      name: geerlingguy.composer
+    become: true
+  - name: Add a user to own developer portal site files
+    user:
+      name: devportal
+      shell: /bin/bash
+    become: true
+  - name: Create drupal deploy dir to avoid permission issues.
+    file:
+      path: "{{ drupal_deploy_dir }}"
+      state: directory
+      mode: 0770
+      owner: "{{ drupal_core_owner }}"
+      group: "{{ drupal_core_owner }}"
+    become: true
+    tags:
+      - test
+  - name: Install Drupal with Apigee Developer Portal Kickstart
+    import_role:
+      name: geerlingguy.drupal
+    environment:
+      COMPOSER_MEMORY_LIMIT: -1
+  - name: Copy over default settings file to settings
+    copy:
+      src: "{{ drupal_core_path }}/sites/default/default.settings.php"
+      dest: "{{ drupal_core_path }}/sites/default/settings.php"
+      remote_src: yes
+    when: not drupal_site_exists
+  - name: Ensure devportal site directory has proper permissions.
+    file:
+      path: "{{ drupal_composer_install_dir }}"
+      recurse: yes
+      state: directory
+      owner: "{{ drupal_core_owner }}"
+      group: "{{ nginx_user }}"
+    failed_when: false
+  - name: Add NGINX configuration file for Devportal
+    template:
+      src: templates/nginx.devportal.conf.j2
+      dest: /etc/nginx/conf.d/nginx.devportal.conf
+  - name: Check if site is already installed.
+    command: "{{ drush_path }} --root={{ drupal_core_path }} status bootstrap"
+    args:
+      chdir: "{{ drupal_core_path }}"
+    register: drupal_status
+    changed_when: false
+    become: false
+  - name: Set Drupal file permissions
+    import_role:
+      name: drupal-file-permissions
+    become: true
+  - name: Make settings.php writable during installation
+    file:
+      path: "{{ drupal_root }}/sites/default/settings.php"
+      state: file
+      mode: '0660'
+    when: "'Drupal bootstrap' not in drupal_status.stdout"
+  - name: Add script to system wide profile for environment vars and PATH
+    template:
+      src: templates/profile-devportal.sh.j2
+      dest: /etc/profile.d/devportal.sh

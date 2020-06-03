@@ -1,0 +1,33 @@
+---
+# tasks file for drupal-file-permissions
+- name: Ensure default sites directory exists
+  file:
+    path: "{{ drupal_root }}/sites/default/files"
+    state: directory
+    mode: '0770'
+- name: Change ownership on site files
+  file:
+    path: "{{ drupal_root }}"
+    owner: "{{ drupal_file_owner }}"
+    group: "{{ drupal_file_group }}"
+    recurse: yes
+- name: "Ensure all directories are rwxr-x---"
+  command: find "{{ drupal_root }}" -type d -exec chmod -c u=rwx,g=rx,o= '{}' \;
+  register: chmod_result
+  changed_when: "chmod_result.stdout != \"\""
+- name: Ensure all files are rw-r-----
+  command: find "{{ drupal_root }}" -type f -exec chmod -c u=rw,g=r,o= '{}' \;
+  register: chmod_result
+  changed_when: "chmod_result.stdout != \"\""
+- name: Ensure sites directory files are rwxrwx---
+  command: find "{{ drupal_root }}"/sites -type d -name files -exec chmod -v ug=rwx,o= '{}' \;
+  register: chmod_result
+  changed_when: "chmod_result.stdout != \"\""
+- name: Ensure all directories inside all "files" directories are rwxrwx---
+  shell: |
+    for x in "{{ drupal_root }}"/sites/*/files; do
+     find ${x} -type d -exec chmod -v ug=rwx,o= '{}' \;
+     find ${x} -type f -exec chmod -v ug=rw,o= '{}' \;
+    done
+  register: chmod_result
+  changed_when: "chmod_result.stdout != \"\""

@@ -1,0 +1,15 @@
+## Ansible example inventory file
+# This file is loaded
+
+all:
+  children:
+    webservers:
+      hosts:
+        web1:
+          ansible_host: 34.70.116.45 # Change this IP
+          ansible_user: chrisnovak_google_com # Change to user to ssh with
+    dbservers:
+      hosts:
+        db1:
+          ansible_host: 34.70.116.45 # Change this IP
+          ansible_user: chrisnovak_google_com # Change to user to ssh with
