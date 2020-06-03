@@ -1,4 +1,4 @@
-# Devportal Kickstart Ansible Installation Scripts
+# Apigee Devportal Kickstart for Drupal Ansible Installation Scripts
 Ansible playbook for installing [Apigee Kickstart developer portal](https://www.drupal.org/project/apigee_devportal_kickstart)
 for Drupal.
 
