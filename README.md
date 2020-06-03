@@ -19,7 +19,6 @@ The topology can be one host with everything, or two hosts where one is the
 database and the other is the web server which contains the Drupal site.
 
 ## Installation and Usage
-
 The following section explains how to install and use this playbook.
 
 ### Clone Repo and Install Ansible 
@@ -65,3 +64,12 @@ This project comes with a simple testing tool to validate the playbook installs
 correctly. The test script will run the playbook on a Docker instance. To run
 tests:
 `cd test; ./run-tests.sh`
+
+## License
+Apache 2.0
+
+This is not an officially supported Google product.
+
+
+
+
