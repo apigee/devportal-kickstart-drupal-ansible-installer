@@ -2,7 +2,7 @@
 Ansible playbook for installing [Apigee Kickstart developer portal](https://www.drupal.org/project/apigee_devportal_kickstart)
 for Drupal.
 
-This playbook is intended to be a starting point and you may want to fork this project
+This playbook is intended to be a starting point, and you may want to fork this project
 to make your own changes to the `playbook.xml` and other files for your own
 requirements.
 
@@ -16,7 +16,7 @@ This playbook will install:
 - Apigee Kickstart Drupal profile
 
 The topology can be one host with everything, or two hosts where one is the 
-database and the other is the web server which contains the Drupal site.
+database, and the other is the web server which contains the Drupal site.
 
 ## Installation and Usage
 The following section explains how to install and use this playbook.
@@ -25,13 +25,16 @@ The following section explains how to install and use this playbook.
 1. Clone or download this repo to the machine which will be your Ansible 
    control node. This can be a local workstation which has ssh access to the
    hosts which will have the software installed.
-2. Install Ansible following the offical [Installing Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
+2. Install Ansible following the official [Installing Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
     
 ### Configuration 
 
 Copy the `example.hosts.yml` file to `hosts.yml` and edit the hostnames/IPs
 listed. If you are installing everything on one host use the same hostname/IP
 on both.
+
+If you are not using SSH agent, you may need to configure Ansible to you the correct SSH key by setting 
+`private_key_file` in the ansible.cfg file. Read more in the [SSH key setup Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/connection_details.html#ssh-key-setup).
 
 ### Pull down requirements from Ansible Galaxy
 From the root of this project, run:
