@@ -1,12 +1,8 @@
 # Apigee Devportal Kickstart for Drupal Ansible Installation Scripts
-Ansible playbook for installing [Apigee Kickstart developer portal](https://www.drupal.org/project/apigee_devportal_kickstart)
-for Drupal.
+This project automates the installation of [Apigee Kickstart developer portal](https://www.drupal.org/project/apigee_devportal_kickstart)
+for Drupal using [Ansible](https://docs.ansible.com/).
 
-This playbook is intended to be a starting point, and you may want to fork this project
-to make your own changes to the `playbook.xml` and other files for your own
-requirements.
-
-This playbook will install:
+By using this project, you will be able to quickly get Apigee Kickstart developer portal installed on a Linux system, including all dependencies. This Ansible playbook will install:
 
 - MySQL
 - Nginx
@@ -15,16 +11,24 @@ This playbook will install:
 - Drupal
 - Apigee Kickstart Drupal profile
 
-The topology can be one host with everything, or two hosts where one is the 
-database, and the other is the web server which contains the Drupal site.
+This playbook is intended to be a starting point and not a "one size fits all" playbook. We recommend you fork this project and make changes to the `playbook.xml` and other files to fit your specific needs.
+
+The topology can be one host with everything, or two hosts where one is the database, and the other is the web server which contains the Drupal site.
+
+## Supported Platforms
+This project may work with other operating systems, but has currently been tested with:
+* CentOS 7
+* RedHat 7
+
+If you successfully install onto any other platforms, let us know and we can add it to the list. We are also accepting contributions to this project if you end up making modifications, see our [contributing guide](docs/contributing.md) for more information.
 
 ## Installation and Usage
 The following section explains how to install and use this playbook.
 
 ### Clone Repo and Install Ansible 
 1. Clone or download this repo to the machine which will be your Ansible 
-   control node. This can be a local workstation which has ssh access to the
-   hosts which will have the software installed.
+   control node. This can be a local workstation or a server which has ssh access to the
+   target host(s).
 2. Install Ansible following the official [Installing Ansible documentation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
     
 ### Configuration 
@@ -60,7 +64,7 @@ You can add issues and ask for help by putting an issue into this repository's
 issue queue.
 
 ## Contributing
-Read the [contributing guide](docs/contributing.md) to learn more about making contributions.
+This is an open source project and encourage users to contribute. Read the [contributing guide](docs/contributing.md) to learn more about making contributions.
 
 ## Tests
 This project comes with a simple testing tool to validate the playbook installs
@@ -71,7 +75,8 @@ tests:
 ## License
 Apache 2.0
 
-This is not an officially supported Google product.
+## Support
+This is not an officially supported Google product. If you find a bug, have questions or want to give feedback, add an issue to the [project's issue queue](https://github.com/apigee/devportal-kickstart-drupal-ansible-installer/issues). If you have issues running Ansible or with one of the open source [Ansible roles included](https://github.com/apigee/devportal-kickstart-drupal-ansible-installer/blob/master/requirements.yml) in this project, you can work with those projects to find solutions to your issue.
 
 
 
