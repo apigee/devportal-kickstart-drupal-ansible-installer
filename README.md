@@ -2,7 +2,7 @@
 This project automates the installation of [Apigee Kickstart developer portal](https://www.drupal.org/project/apigee_devportal_kickstart)
 for Drupal using [Ansible](https://docs.ansible.com/).
 
-By using this project, you will be able to quickly get Apigee Kickstart developer portal installed on a Linux system, including all dependencies. This Ansible playbook will install:
+By using this project, you can get Apigee Kickstart developer portal installed on a Linux system, including all dependencies. This Ansible playbook will install:
 
 - MySQL
 - Nginx
@@ -15,7 +15,7 @@ This playbook is intended to be a starting point and not a "one size fits all" p
 
 The topology can be one host with everything, or two hosts where one is the database, and the other is the web server which contains the Drupal site.
 
-## Supported Platforms
+## Target Platforms
 This project may work with other operating systems, but has currently been tested with:
 * CentOS 7
 * RedHat 7
@@ -64,19 +64,25 @@ You can add issues and ask for help by putting an issue into this repository's
 issue queue.
 
 ## Contributing
-This is an open source project and encourage users to contribute. Read the [contributing guide](docs/contributing.md) to learn more about making contributions.
+This is an open source project that encourages contributions from the community. Read the 
+[contributing guide](docs/contributing.md) to learn more about making contributions.
 
 ## Tests
-This project comes with a simple testing tool to validate the playbook installs
-correctly. The test script will run the playbook on a Docker instance. To run
-tests:
+This project comes with a simple testing tool to validate the playbook installs correctly. The 
+test script will run the playbook on a Docker instance. To run tests:
 `cd test; ./run-tests.sh`
 
 ## License
 Apache 2.0
 
 ## Support
-This is not an officially supported Google product. If you find a bug, have questions or want to give feedback, add an issue to the [project's issue queue](https://github.com/apigee/devportal-kickstart-drupal-ansible-installer/issues). If you have issues running Ansible or with one of the open source [Ansible roles included](https://github.com/apigee/devportal-kickstart-drupal-ansible-installer/blob/master/requirements.yml) in this project, you can work with those projects to find solutions to your issue.
+This is not an officially supported Google product. The architectural choices of these scripts do not 
+connote support implications. Please refer to the extensive documentation on drupal.org for guidance on installation. 
+
+If you find a bug, have questions or want to give feedback, add an issue to the 
+[project's issue queue](https://github.com/apigee/devportal-kickstart-drupal-ansible-installer/issues). If you 
+have issues running Ansible or with one of the open source [Ansible roles included](https://github.com/apigee/devportal-kickstart-drupal-ansible-installer/blob/master/requirements.yml)
+in this project, you can work with those projects to find solutions to your issue.
 
 
 
