@@ -1,0 +1,28 @@
+name: Molecule
+
+on: [ push ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distro:
+          - centos8
+          - centos7
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install molecule dependencies
+        run: |
+          sudo apt install python3-setuptools
+          sudo pip3 install wheel docker-py
+          sudo pip3 install molecule molecule\[docker\]
+
+      - run: molecule test
+        env:
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
