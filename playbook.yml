@@ -9,6 +9,11 @@
 
 - hosts: webservers
   gather_facts: true
+  roles:
+    - role: geerlingguy.repo-remi
+      when: ansible_os_family == 'RedHat'
+      - geerlingguy.php-versions
+      - geerlingguy.php
   tasks:
   - name: Install NGINX
     import_role:

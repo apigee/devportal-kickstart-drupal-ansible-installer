@@ -2,6 +2,8 @@
 roles:
   - name: geerlingguy.php
     version: 4.2.0
+  - name: geerlingguy.php-versions
+    version: 4.0.3
   - name: geerlingguy.nginx
     version: 2.7.0
   - name: geerlingguy.repo-remi

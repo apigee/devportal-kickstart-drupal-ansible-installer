@@ -73,11 +73,12 @@ php_max_execution_time: "60"
 php_upload_max_filesize: "256M"
 # Change to proper timezone: https://www.php.net/manual/en/timezones.php
 php_date_timezone: "America/Los_Angeles"
+php_version: '7.3'
 # Extra PHP modules to install
 php_packages_extra:
-- php-json
-- php-mysqlnd
-- php-bcmath
+- php7.3-json
+- php7.3-mysqlnd
+- php7.3-bcmath
 
 ################################################################################
 # Composer configuration
