@@ -32,6 +32,7 @@ drupal_composer_dependencies:
 drupal_deploy: true
 # Use the Apigee Kickstart for Drupal composer project.
 drupal_deploy_repo: "https://github.com/apigee/devportal-kickstart-project-composer.git"
+# Install Drupal 8. Change to "9.x" to install Drupal 9.
 drupal_deploy_version: 8.x
 drupal_deploy_update: true
 drupal_deploy_dir: "/opt/devportal"
