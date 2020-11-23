@@ -68,9 +68,18 @@ This is an open source project that encourages contributions from the community.
 [contributing guide](docs/contributing.md) to learn more about making contributions.
 
 ## Tests
-This project comes with a simple testing tool to validate the playbook installs correctly. The 
-test script will run the playbook on a Docker instance. To run tests:
-`cd test; ./run-tests.sh`
+This project uses [Molecule](https://molecule.readthedocs.io/en/latest/) to validate that the playbook installs correctly.
+By default Molecule will run the playbook on a CentOS 8 Docker image. To run the tests you
+need to have molecule and molecule[docker] installed locally. On a system where pip is already
+installed this can be achieved with a single command invocation.
+
+```
+$ pip3 install molecule molecule\[docker\]
+```
+
+Afterwards, when `molecule test` is invoked it will download Galaxy dependencies, lint the yaml
+files, create a container called instance, provision it with Ansible, and validate the playbook
+idempotency.
 
 ## License
 Apache 2.0

@@ -1,0 +1,25 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: docker.io/geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest
+    pre_build_image: true
+    network_mode: host
+    # required for systemd support within the container
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    command: "/usr/sbin/init"
+    environment:
+      container: docker
+provisioner:
+  name: ansible
+  ansible_args:
+    - --inventory=inventory.ini
+verifier:
+  name: ansible
