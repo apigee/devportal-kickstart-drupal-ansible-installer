@@ -34,6 +34,10 @@
     import_role:
       name: geerlingguy.composer
     become: true
+  - name: Ensure we are using composer version 1
+    command: /usr/bin/composer self-update --1
+    become: true
+    changed_when: false
   - name: Add a user to own developer portal site files
     user:
       name: devportal
@@ -50,11 +54,14 @@
     tags:
       - test
   - name: Install Drupal with Apigee Developer Portal Kickstart
+    become: true
     import_role:
       name: geerlingguy.drupal
     environment:
       COMPOSER_MEMORY_LIMIT: -1
   - name: Copy over default settings file to settings
+    become: true
+    become_user: "{{ drupal_core_owner }}"
     copy:
       src: "{{ drupal_core_path }}/sites/default/default.settings.php"
       dest: "{{ drupal_core_path }}/sites/default/settings.php"
@@ -69,6 +76,7 @@
       group: "{{ nginx_user }}"
     failed_when: false
   - name: Add NGINX configuration file for Devportal
+    become: true
     template:
       src: templates/nginx.devportal.conf.j2
       dest: /etc/nginx/conf.d/nginx.devportal.conf
@@ -78,18 +86,31 @@
       chdir: "{{ drupal_core_path }}"
     register: drupal_status
     changed_when: false
-    become: false
+    become: true
   - name: Set Drupal file permissions
     import_role:
       name: drupal-file-permissions
     become: true
   - name: Make settings.php writable during installation
+    become: true
     file:
       path: "{{ drupal_root }}/sites/default/settings.php"
       state: file
       mode: '0660'
     when: "'Drupal bootstrap' not in drupal_status.stdout"
   - name: Add script to system wide profile for environment vars and PATH
+    become: true
     template:
       src: templates/profile-devportal.sh.j2
       dest: /etc/profile.d/devportal.sh
+  - name: Ensure SELinux python utils are present
+    become: true
+    package:
+      name: policycoreutils-python-utils
+      state: present
+  - name: Enable SELinux boolean
+    become: true
+    seboolean:
+      name: httpd_can_network_connect # allows nginx to connect to FPM/MySQL
+      state: yes
+      persistent: yes
